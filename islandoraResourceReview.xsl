@@ -9,11 +9,13 @@
         <xsl:apply-templates/>
     </xsl:template>
 
-    <xsl:template match="xb:digital_entity_result">
-        <xsl:text>Count of digital entities: </xsl:text>
-        <xsl:value-of select="count(xb:digital_entity)"/>
+    <xsl:template match="mods:modsCollection">
+        <xsl:text>Count of all citations: </xsl:text>
+        <xsl:value-of select="count(mods:mods)"/>
         <xsl:text>&#xA;&#xA;</xsl:text>
-
+        
+<!-- @@@ THIS IS WHERE I STOPPED FOR A SEC @@@-->
+        
         <xsl:text>Count of typeOfResource elements: </xsl:text>
         <xsl:value-of select="count(//mods:typeOfResource)"/>
         <xsl:text>&#xA;</xsl:text>
