@@ -61,10 +61,10 @@
             <xsl:text>&#xA;</xsl:text>
             <xsl:text>&#xA;</xsl:text>
         </xsl:for-each-group>
-        <xsl:text>Still images with a manuscript attribute</xsl:text>
+        <xsl:text>Text with a collection attribute</xsl:text>
         <xsl:text>&#xA;</xsl:text>
         <xsl:for-each select="xb:digital_entity">
-            <xsl:if test="(mds/md/mods:mods/mods:typeOfResource='still image') and (mds/md/mods:mods/mods:typeOfResource/@manuscript)">
+            <xsl:if test="(mds/md/mods:mods/mods:typeOfResource='text') and (mds/md/mods:mods/mods:typeOfResource/@collection)">
                 <xsl:value-of select="pid"/>
                 <xsl:text>&#x9;</xsl:text>
                 <xsl:value-of select="normalize-space(mds/md/mods:mods/mods:titleInfo/mods:title)"/>
