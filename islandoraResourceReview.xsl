@@ -14,8 +14,6 @@
         <xsl:value-of select="count(mods:mods)"/>
         <xsl:text>&#xA;&#xA;</xsl:text>
         
-<!-- @@@ THIS IS WHERE I STOPPED FOR A SEC @@@-->
-        
         <xsl:text>Count of typeOfResource elements: </xsl:text>
         <xsl:value-of select="count(//mods:typeOfResource)"/>
         <xsl:text>&#xA;</xsl:text>
@@ -32,7 +30,6 @@
         <xsl:text>Count of typeOfResource elements with @collection: </xsl:text>
         <xsl:value-of select="count(descendant::mods:mods/mods:typeOfResource/@collection)"/>
         <xsl:text>&#xA;</xsl:text>
-
 
         <xsl:text>Count of typeOfResource elements with @manuscript: </xsl:text>
         <xsl:value-of select="count(descendant::mods:mods/mods:typeOfResource/@manuscript)"/>
@@ -63,16 +60,20 @@
             <xsl:text>&#xA;</xsl:text>
             <xsl:text>&#xA;</xsl:text>
         </xsl:for-each-group>
-        <xsl:text>Text with a collection attribute</xsl:text>
+        <xsl:text>Text with a manuscript attribute</xsl:text>
         <xsl:text>&#xA;</xsl:text>
-        <xsl:for-each select="xb:digital_entity">
-            <xsl:if test="(mds/md/mods:mods/mods:typeOfResource='text') and (mds/md/mods:mods/mods:typeOfResource/@collection)">
-                <xsl:value-of select="pid"/>
+        <xsl:for-each select="mods:mods">
+ <!-- Line 67 Why is it necessary to specify 'mds/md/ before mods:mods if we've already changed the context to mods:mods in the for-each select?  line 66.-->    
+            <xsl:if test="(mods:typeOfResource='text') and (mods:typeOfResource/@manuscript)">
+ <!-- line 69 this simply returns a boollean value. Need to figure out how to tell xsl to select test of one partocular element when the element name is dup'd but attribute is different-->
+                <xsl:value-of select="mods:identifier/@type='hdl'"/>
                 <xsl:text>&#x9;</xsl:text>
-                <xsl:value-of select="normalize-space(mds/md/mods:mods/mods:titleInfo/mods:title)"/>
+<!-- need to figure out a way to print titles. this causes an error-->
+                <!-- <xsl:value-of select="//mods:titleInfo/@usage="primary""/>-->
                 <xsl:text>&#x9;</xsl:text>
-                <xsl:value-of select="mds/md/mods:mods/mods:extension/mods:localCollectionName"/>
-                <xsl:value-of select="mds/md/mods:mods/mods:extension/localCollectionName"/>
+                <xsl:value-of select="mods:extension/mods:localCollectionName"/>
+ <!-- why doesn't this put 4 pipes between 2 different ways to writing localcollectionname? put the pipes before both-->
+                <xsl:text> &#x7c;&#x7c;&#x7c;&#x7c; </xsl:text><xsl:value-of select="mods:extension/localCollectionName"/>
                 <xsl:text>&#x9;</xsl:text>
                 <xsl:text>&#xA;</xsl:text>
             </xsl:if>
