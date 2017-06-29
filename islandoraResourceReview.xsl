@@ -65,16 +65,15 @@
         <xsl:for-each select="mods:mods">
  <!-- Line 67 Why is it necessary to specify 'mds/md/ before mods:mods if we've already changed the context to mods:mods in the for-each select?  line 66.-->    
             <xsl:if test="(mods:typeOfResource='text') and (mods:typeOfResource/@manuscript)">
- <!-- line 69 this simply returns a boollean value. Need to figure out how to tell xsl to select test of one partocular element when the element name is dup'd but attribute is different-->
-                <xsl:value-of select="mods:identifier/@type='hdl'"/>
-                <xsl:text>&#x9;</xsl:text>
-<!-- need to figure out a way to print titles. this causes an error-->
-                <!-- <xsl:value-of select="//mods:titleInfo/@usage="primary""/>-->
-                <xsl:text>&#x9;</xsl:text>
+                <xsl:value-of select="mods:identifier[@type='hdl']"/>
+                <xsl:text> &#x7c;&#x7c;&#x7c;&#x7c; </xsl:text>
+<!-- need to figure out a way to print full titles, this just prints <title> not <subTitle>-->
+                <xsl:value-of select="mods:titleInfo[@usage='primary']/mods:title"/>
+                <!-- <xsl:text> &#x7c;&#x7c;&#x7c;&#x7c; </xsl:text> -->
                 <xsl:value-of select="mods:extension/mods:localCollectionName"/>
  <!-- why doesn't this put 4 pipes between 2 different ways to writing localcollectionname? put the pipes before both-->
-                <xsl:text> &#x7c;&#x7c;&#x7c;&#x7c; </xsl:text><xsl:value-of select="mods:extension/localCollectionName"/>
-                <xsl:text>&#x9;</xsl:text>
+                <!-- <xsl:value-of select="mods:extension/localCollectionName"/> -->
+                <xsl:text> &#x7c;&#x7c;&#x7c;&#x7c; </xsl:text>
                 <xsl:text>&#xA;</xsl:text>
             </xsl:if>
 
